@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent, FormEvent } from "react";
+import { useState, ChangeEvent, FormEvent } from "react";
 
 // interfaces
 import { ITask } from "../interfaces/Task";
@@ -10,7 +10,6 @@ interface Props {
 }
 
 const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
-  const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
 
@@ -29,8 +28,6 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
 
     setTitle("");
     setDifficulty(0);
-
-    console.log(taskList);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -42,7 +39,7 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
   };
 
   return (
-    <form className="w-full max-w-xl mx-auto mb-7" onSubmit={handleSubmit}>
+    <form className="w-full max-w-xl mx-auto mb-7 px-2" onSubmit={handleSubmit}>
       <div className="flex flex-col gap-4 items-start w-full">
         <label className="flex flex-col gap-2 w-full">
           <span className="text-xl font-medium">Título:</span>

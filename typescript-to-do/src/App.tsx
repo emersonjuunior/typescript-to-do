@@ -6,12 +6,20 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import TaskForm from "./components/TaskForm";
 import TaskList from "./components/TaskList";
+import Modal from "./components/Modal";
 
 // interfaces
 import { ITask } from "./interfaces/Task";
 
 function App() {
   const [taskList, setTaskList] = useState<ITask[]>([]);
+  const [editModal, setEditModal] = useState<boolean>(false);
+  const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
+
+  const selectTask = (task: ITask): void => {
+    setTaskToUpdate(task);
+    setEditModal(true);
+  };
 
   const deleteTask = (id: string): void => {
     setTaskList(taskList.filter((task) => task.id !== id));
@@ -35,9 +43,22 @@ function App() {
           <h2 className="text-center text-2xl md:text-3xl font-medium mb-6">
             Suas Tarefas:
           </h2>
-          <TaskList taskList={taskList} deleteTask={deleteTask} />
+          <TaskList
+            taskList={taskList}
+            deleteTask={deleteTask}
+            selectTask={selectTask}
+          />
         </div>
       </main>
+      {editModal && (
+        <Modal
+          btnText="Editar Tarefa"
+          taskToUpdate={taskToUpdate}
+          setEditModal={setEditModal}
+          taskList={taskList}
+          setTaskList={setTaskList}
+        />
+      )}
       <Footer />
     </>
   );

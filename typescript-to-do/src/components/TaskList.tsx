@@ -3,9 +3,10 @@ import { ITask } from "../interfaces/Task";
 interface Props {
   taskList: ITask[];
   deleteTask(id: string): void;
+  selectTask(task: ITask): void
 }
 
-const TaskList = ({ taskList, deleteTask }: Props) => {
+const TaskList = ({ taskList, deleteTask, selectTask }: Props) => {
   return (
     <div>
       {taskList.length > 0 ? (
@@ -24,7 +25,10 @@ const TaskList = ({ taskList, deleteTask }: Props) => {
               </div>
               <div className="flex flex-col gap-3">
                 <button>
-                  <i className="fa-solid fa-pencil text-xl bg-black text-white px-2 py-2 rounded cursor-pointer hover:bg-gray-800 duration-200"></i>
+                  <i
+                    className="fa-solid fa-pencil text-xl bg-black text-white px-2 py-2 rounded cursor-pointer hover:bg-gray-800 duration-200"
+                    onClick={() => selectTask(task)}
+                  ></i>
                 </button>
                 <button>
                   <i
@@ -39,7 +43,11 @@ const TaskList = ({ taskList, deleteTask }: Props) => {
       ) : (
         <div className="flex flex-col w-full items-center">
           <p className="text-xl">Não há tarefas cadastradas!</p>
-          <img src="/empty.png" alt="Nenhuma tarefa cadastrada" className="md:w-sm w-xs" />
+          <img
+            src="/empty.png"
+            alt="Nenhuma tarefa cadastrada"
+            className="md:w-sm w-xs"
+          />
         </div>
       )}
     </div>
