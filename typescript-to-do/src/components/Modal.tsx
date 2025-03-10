@@ -30,12 +30,17 @@ const Modal = ({
     e.preventDefault();
     const updatedTask: ITask = { title, difficulty, id };
 
+    const tasksStorage = taskList.map((task) => {
+      return task.id === updatedTask.id ? updatedTask : task;
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasksStorage));
+
     const updatedItems = taskList.map((task) => {
       return task.id === updatedTask.id ? updatedTask : task;
     });
 
     setTaskList(updatedItems);
-    setEditModal(false)
+    setEditModal(false);
   };
 
   return (

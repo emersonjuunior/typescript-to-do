@@ -24,6 +24,8 @@ const TaskForm = ({ btnText, taskList, setTaskList }: Props) => {
       difficulty,
     };
 
+    const tasksStorage = [...taskList, newTask];
+    localStorage.setItem("tasks", JSON.stringify(tasksStorage));
     setTaskList!([...taskList, newTask]);
 
     setTitle("");

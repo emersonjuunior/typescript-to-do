@@ -12,7 +12,9 @@ import Modal from "./components/Modal";
 import { ITask } from "./interfaces/Task";
 
 function App() {
-  const [taskList, setTaskList] = useState<ITask[]>([]);
+  const [taskList, setTaskList] = useState<ITask[]>(
+    () => JSON.parse(localStorage.getItem("tasks") || "[]") as ITask[]
+  );
   const [editModal, setEditModal] = useState<boolean>(false);
   const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
 
@@ -22,6 +24,8 @@ function App() {
   };
 
   const deleteTask = (id: string): void => {
+    const tasksStorage = taskList.filter((task) => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(tasksStorage));
     setTaskList(taskList.filter((task) => task.id !== id));
   };
 
